@@ -1,1 +1,1 @@
-# GTM-Pixel_Inventory_Collector
+# GTM Costum Tag Template: Pixel_Inventory_Collector
