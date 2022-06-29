@@ -1,0 +1,5 @@
+homepage: "https://support.google.com/merchants/answer/3057972"
+documentation: ""
+versions:
+  - sha: 2c1b9151ee67a34633b5424ad1d266889983d985
+    changeNotes: Initial release.
