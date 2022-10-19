@@ -50,32 +50,29 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 const log = require('logToConsole');
 const copyFromDataLayer = require('copyFromDataLayer');
 const sendPixel = require('sendPixel');
-const getTimestampMillis = require('getTimestampMillis');
 const JSON = require('JSON');
 
 const event = copyFromDataLayer('event');
-const eventTimestamp = getTimestampMillis();
  
 const endPoint = data.endPoint;
 const merchantID = data.merchantID;
 
-// store_code or store address 
-const fields = ['item_id', 'store_code', 'availability', 'price', 'pickup_method', 'pickup_sla'];
- 
+// store_code
+const required_attributes = ['item_id', 'store_code', 'availability', 'price', 'language', 'target_country', 'quantity', 'sale_price', 'store_address', 'pickup_method', 'pickup_sla'];
+
 const inventory = {
-  'timestamp': eventTimestamp,
   'merchant_id': merchantID
 };
 
-log('inventory initialized: ', inventory);
-
-for (const key of fields) {
+for (const key of required_attributes) {
   const value = copyFromDataLayer(key);
-  log(key, value);
-  inventory[key] = value;
+  if (value != undefined) {
+    inventory[key] = value;
+  }
 }
 
-log('inventory: ', inventory);
+log('inventory pixel generated: ', inventory);
+
 const onSuccess = (response) => {
   log(response);
   data.gtmOnSuccess();
@@ -171,6 +168,26 @@ ___WEB_PERMISSIONS___
               },
               {
                 "type": 1,
+                "string": "language"
+              },
+              {
+                "type": 1,
+                "string": "target_country"
+              },
+              {
+                "type": 1,
+                "string": "quantity"
+              },
+              {
+                "type": 1,
+                "string": "sale_price"
+              },
+              {
+                "type": 1,
+                "string": "store_address"
+              },
+              {
+                "type": 1,
                 "string": "pickup_method"
               },
               {
@@ -197,6 +214,6 @@ scenarios: []
 
 ___NOTES___
 
-Created on 6/29/2022, 11:40:16 AM
+Created on 10/19/2022, 11:44:19 AM
 
 
