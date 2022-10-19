@@ -2,8 +2,10 @@ homepage: "https://support.google.com/merchants/answer/3057972"
 documentation: ""
 versions:
   # Latest version
+  - sha: 7ab0ce97f10ee33545c0489b1f6a7b46a260377b
+    changeNotes: Update .tpl file with attribute fields to align with endpoint requirements.
+  # Older versions
   - sha: 3e8e28888cf00e4c50910bbd7be7f8d5c2505bb6
     changeNotes: Update .tpl file with the missing Terms of Service section.
-  # Older versions
   - sha: 2c1b9151ee67a34633b5424ad1d266889983d985
     changeNotes: Initial release.
