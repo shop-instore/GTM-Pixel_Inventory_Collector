@@ -51,23 +51,22 @@ const log = require('logToConsole');
 const copyFromDataLayer = require('copyFromDataLayer');
 const sendPixel = require('sendPixel');
 const JSON = require('JSON');
-
-const event = copyFromDataLayer('event');
+const encodeUriComponent = require('encodeUriComponent');
  
 const endPoint = data.endPoint;
 const merchantID = data.merchantID;
 
-// store_code
-const required_attributes = ['item_id', 'store_code', 'availability', 'price', 'language', 'target_country', 'quantity', 'sale_price', 'store_address', 'pickup_method', 'pickup_sla'];
+// List of attribute keys.
+const attributes = ['item_id', 'store_code', 'availability', 'price', 'language', 'target_country', 'pickup_method', 'pickup_sla'];
 
 const inventory = {
   'merchant_id': merchantID
 };
 
-for (const key of required_attributes) {
+for (const key of attributes) {
   const value = copyFromDataLayer(key);
   if (value != undefined) {
-    inventory[key] = value;
+    inventory[key] = value.trim();
   }
 }
 
@@ -83,9 +82,9 @@ const onFailure = (response) => {
 };
 
 sendPixel(
-  endPoint + '?data=' + JSON.stringify(inventory),
-  onSuccess,
-  onFailure
+  endPoint + '?data=' + encodeUriComponent(JSON.stringify(inventory)),
+  onSuccess(),
+  onFailure()
 );
 
 
