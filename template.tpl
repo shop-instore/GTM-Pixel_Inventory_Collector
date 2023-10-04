@@ -1,12 +1,4 @@
-___TERMS_OF_SERVICE___
-
-By creating or modifying this file you agree to Google Tag Manager's Community
-Template Gallery Developer Terms of Service available at
-https://developers.google.com/tag-manager/gallery-tos (or such other URL as
-Google may provide), as modified from time to time.
-
-
-___INFO___
+﻿___INFO___
 
 {
   "type": "TAG",
@@ -45,7 +37,8 @@ ___TEMPLATE_PARAMETERS___
       {
         "type": "NON_EMPTY"
       }
-    ]
+    ],
+    "help": "The Merchant Center ID."
   },
   {
     "type": "TEXT",
@@ -56,7 +49,8 @@ ___TEMPLATE_PARAMETERS___
       {
         "type": "NON_EMPTY"
       }
-    ]
+    ],
+    "help": "The API Key provided by Google LIA team."
   },
   {
     "type": "CHECKBOX",
@@ -73,7 +67,7 @@ ___TEMPLATE_PARAMETERS___
       {
         "type": "TEXT",
         "name": "target_country",
-        "displayName": "Target Country (ISO 3166 Alpha-2 Code)",
+        "displayName": "Target Country",
         "simpleValueType": true,
         "valueValidators": [
           {
@@ -86,12 +80,13 @@ ___TEMPLATE_PARAMETERS___
           {
             "type": "NON_EMPTY"
           }
-        ]
+        ],
+        "help": "The target country parameter that matches your primary feed configuration. \u003cbr/\u003e Use ISO 3166-1 alpha-2 format. (For example, \u0027US\u0027 for United States)"
       },
       {
         "type": "TEXT",
         "name": "language",
-        "displayName": "Language (ISO 639-1 Alpha-2 Code)",
+        "displayName": "Language",
         "simpleValueType": true,
         "valueValidators": [
           {
@@ -104,7 +99,8 @@ ___TEMPLATE_PARAMETERS___
           {
             "type": "NON_EMPTY"
           }
-        ]
+        ],
+        "help": "The language parameter that matches your primary feed configuration. \u003cbr/\u003e Use ISO 639-1 alpha-2 code format. (For example, \u0027en\u0027 for English)"
       },
       {
         "type": "TEXT",
@@ -167,7 +163,7 @@ ___TEMPLATE_PARAMETERS___
       {
         "type": "TEXT",
         "name": "availability",
-        "displayName": "Availability",
+        "displayName": "Availability (In Store)",
         "simpleValueType": true,
         "enablingConditions": [],
         "valueValidators": [
@@ -175,7 +171,7 @@ ___TEMPLATE_PARAMETERS___
             "type": "NON_EMPTY"
           }
         ],
-        "help": "The availability attribute to tell users and Google whether you have a product in stock. \u003cbr/\u003eSupported values: in_stock, limited, out_of_stock."
+        "help": "The availability attribute to tell users and Google whether you have a product in stock at your local store. \u003cbr/\u003eSupported values: in_stock, limited, out_of_stock."
       },
       {
         "type": "GROUP",
