@@ -1,5 +1,5 @@
-# GTM Custom Tag Template: Pixel_Inventory_Collector
+# GTM Custom Tag Template: Google Inventory Collector
 
-This is a Google Tag Manager custom tag template serving Pixel AutoFeeds service owned by Google Local Shopping Ads Team.
+This is a Google Tag Manager custom tag template serving WebSiteReported AutoFeeds service owned by Google LIA (Local Inventory Ads) Team.
 
-Please contact us for Pixel Autofeeds Onboarding consultation before importing.
+Please contact us for WebSiteReported Autofeeds Onboarding consultation before importing.
