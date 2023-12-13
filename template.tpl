@@ -53,12 +53,6 @@ ___TEMPLATE_PARAMETERS___
     "help": "The API Key provided by Google LIA team."
   },
   {
-    "type": "CHECKBOX",
-    "name": "read_from_data_layer",
-    "checkboxText": "(Legacy) Read From Data Layer",
-    "simpleValueType": true
-  },
-  {
     "type": "GROUP",
     "name": "Offer Inventory Variables Group",
     "displayName": "Set inventory parameters",
@@ -195,13 +189,7 @@ ___TEMPLATE_PARAMETERS___
         "help": "See \u003ca href\u003d\\\"https://support.google.com/merchants/answer/7029574\\\" target\u003d\\\"_blank\\\"\u003ePickup Today\u003c/a\u003e and \n\u003ca href\u003d\\\"https://support.google.com/merchants/answer/9439765\\\" target\u003d\\\"_blank\\\"\u003ePickup Later\u003c/a\u003e for different pickup attributes setup options."
       }
     ],
-    "enablingConditions": [
-      {
-        "paramName": "read_from_data_layer",
-        "paramValue": false,
-        "type": "EQUALS"
-      }
-    ]
+    "enablingConditions": []
   }
 ]
 
@@ -209,13 +197,11 @@ ___TEMPLATE_PARAMETERS___
 ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
 const log = require('logToConsole');
-const copyFromDataLayer = require('copyFromDataLayer');
 const sendPixel = require('sendPixel');
 const JSON = require('JSON');
 const encodeUriComponent = require('encodeUriComponent');
 const toBase64 = require('toBase64');
 const makeInteger = require('makeInteger');
-const event = copyFromDataLayer('event');
 
 if (data.merchant_id == undefined || data.merchant_id <= 0) {
   log('Invalid Merchant ID!');
@@ -237,13 +223,7 @@ const optional_attributes = ['pickup_method', 'pickup_sla'];
 
 let inventory = {'merchant_id': merchant_id};
 
-let valid = false;
-if (data.read_from_data_layer) {
-  valid = fetchAttributesFromDataLayer();
-} else {
-  valid = fetchAttributesFromInput();
-}
-if (!valid) {
+if (!fetchAttributesFromInput()) {
   data.gtmOnFailure();
   return;
 }
@@ -256,25 +236,6 @@ const pixelUrl =
     '?key=' + encodeUriComponent(api_key);
 
 sendPixel(pixelUrl, data.gtmOnSuccess(), data.gtmOnFailure());
-
-function fetchAttributesFromDataLayer() {
-  for (const attr of required_attributes) {
-    const value = copyFromDataLayer(attr);
-    if (value != undefined && value != null && value.trim().length > 0) {
-      inventory[attr] = value.trim();
-    } else {
-      log('Missing attribute ', attr, ' in data layer.');
-      return false;
-    }
-  }
-  for (const attr of optional_attributes) {
-    const value = copyFromDataLayer(attr);
-    if (value != undefined && value != null && value.trim().length > 0) {
-      inventory[attr] = value.trim();
-    }
-  }
-  return true;
-}
 
 function fetchAttributesFromInput() {
   for (const attr of required_attributes) {
@@ -332,64 +293,6 @@ ___WEB_PERMISSIONS___
           "value": {
             "type": 1,
             "string": "any"
-          }
-        }
-      ]
-    },
-    "clientAnnotations": {
-      "isEditedByUser": true
-    },
-    "isRequired": true
-  },
-  {
-    "instance": {
-      "key": {
-        "publicId": "read_data_layer",
-        "versionId": "1"
-      },
-      "param": [
-        {
-          "key": "keyPatterns",
-          "value": {
-            "type": 2,
-            "listItem": [
-              {
-                "type": 1,
-                "string": "event"
-              },
-              {
-                "type": 1,
-                "string": "item_id"
-              },
-              {
-                "type": 1,
-                "string": "store_code"
-              },
-              {
-                "type": 1,
-                "string": "availability"
-              },
-              {
-                "type": 1,
-                "string": "price"
-              },
-              {
-                "type": 1,
-                "string": "language"
-              },
-              {
-                "type": 1,
-                "string": "target_country"
-              },
-              {
-                "type": 1,
-                "string": "pickup_method"
-              },
-              {
-                "type": 1,
-                "string": "pickup_sla"
-              }
-            ]
           }
         }
       ]
