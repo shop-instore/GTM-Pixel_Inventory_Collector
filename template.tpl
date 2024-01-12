@@ -231,7 +231,7 @@ if (!fetchAttributesFromInput()) {
 log('inventory pixel generated: ', inventory);
 
 const pixelUrl =
-      'https://wsri.googleapis.com/v1alpha/' +
+      'https://wsri.googleapis.com/v1/' +
       encodeUriComponent(toBase64(JSON.stringify(inventory))) +
     '?key=' + encodeUriComponent(api_key);
 
